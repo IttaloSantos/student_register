@@ -11,11 +11,11 @@ struct profile_st
     float    cre;
 };
 
-profile *MANAGER_createStudentProfile(const char *name, int age, long int rg_number, float cre)
+profile *MANAGER_createStudentProfile(const char *name, int name_size, int age, long int rg_number, float cre)
 {
     profile *std_profile = (profile*) calloc(1, sizeof(profile));
 
-    std_profile->name = (char*) calloc(1, sizeof(char));
+    std_profile->name = (char*) calloc(1, name_size*sizeof(char));
     strcpy(std_profile->name, name);
     
     std_profile->age       = age;
