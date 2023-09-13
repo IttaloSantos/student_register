@@ -1,7 +1,7 @@
 #ifndef MANAGER_H
 #define MANAGER_H
 
-typedef struct student_profile profile;
+typedef struct profile_st profile;
 
 profile *MANAGER_createStudentProfile(const char *name, int age, long int rg_number, float cre);
 void     MANAGER_deleteStudentProfile(profile *profile_p);

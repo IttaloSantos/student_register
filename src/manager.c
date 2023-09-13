@@ -3,7 +3,7 @@
 #include <string.h>
 #include "manager.h"
 
-struct student_profile
+struct profile_st
 {
     char     *name;
     int      age;
