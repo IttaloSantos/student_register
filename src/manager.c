@@ -27,6 +27,7 @@ profile *MANAGER_createStudentProfile(const char *name, int name_size, int age, 
 
 void MANAGER_deleteStudentProfile(profile *profile_p)
 {
+    free(profile_p->name);
     free(profile_p);
     profile_p = NULL;
 }
