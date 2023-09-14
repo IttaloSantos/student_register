@@ -32,6 +32,7 @@ void MANAGER_addStudentOnList(const char *name, int name_size, int age, long int
 
     if(student_list == NULL) student_list = createStudentList();
 
+    //! TODO: Create a private function to do the memcpy
     int profile_total_size = sizeof(profile) + strlen(profile_p->name);
     uint8_t *profile_bytes = (uint8_t*) calloc(1, profile_total_size);
 
