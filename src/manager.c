@@ -4,6 +4,12 @@
 #include "manager.h"
 #include "list_handler.h"
 
+static list *student_list = NULL;
+
+/* ######################################################### */
+/*                         PROTOTYPES                        */
+/* ######################################################### */
+
 static list *createStudentList(void);
 
 /* ######################################################### */
@@ -37,6 +43,20 @@ void MANAGER_deleteStudentProfile(profile *profile_p)
     free(profile_p->name);
     free(profile_p);
     profile_p = NULL;
+}
+
+void MANAGER_addStudentOnList(profile *profile_p)
+{
+    if(student_list == NULL) student_list = createStudentList();
+
+    int profile_total_size = sizeof(profile) + strlen(profile_p->name);
+    uint8_t *profile_bytes = (uint8_t*) calloc(1, profile_total_size);
+
+    memcpy(profile_bytes, profile_p, profile_total_size);
+
+    LIST_addNodeOnHead(student_list, profile_bytes, profile_total_size);
+
+    free(profile_bytes);
 }
 
 void MANAGER_printStudentProfile(const profile *profile_p)
