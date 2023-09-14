@@ -19,6 +19,7 @@ struct node_st
 
 struct list_st
 {
+    int   size;
     node *begin;
     node *end;
 };
@@ -39,6 +40,7 @@ bool LIST_addNodeOnHead(list *linked_list, const uint8_t *value_p, int value_siz
 
     node_p->next       = linked_list->begin;
     linked_list->begin = node_p;
+    linked_list->size++;
 
     return true;
 }
@@ -53,6 +55,7 @@ bool LIST_addNodeOnTail(list *linked_list, const uint8_t *value_p, int value_siz
     else                           linked_list->end->next = node_p;
 
     linked_list->end = node_p;
+    linked_list->size++;
 
     return true;
 }
