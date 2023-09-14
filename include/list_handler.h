@@ -4,11 +4,11 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef struct list_st linked_list;
+typedef struct list_st list;
 typedef struct node_st node;
 
-linked_list *LIST_createList(void);
-bool LIST_addNodeOnHead(linked_list *list, const uint8_t *value_p, int value_size);
-bool LIST_addNodeOnTail(linked_list *list, const uint8_t *value_p, int value_size);
+list *LIST_createList(void);
+bool LIST_addNodeOnHead(list *linked_list, const uint8_t *value_p, int value_size);
+bool LIST_addNodeOnTail(list *linked_list, const uint8_t *value_p, int value_size);
 
 #endif

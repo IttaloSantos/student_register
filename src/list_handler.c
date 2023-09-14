@@ -3,7 +3,7 @@
 #include <string.h>
 #include "list_handler.h"
 
-static bool is_list_empty(const linked_list *list);
+static bool is_list_empty(const list *linked_list);
 static bool is_value_valid(const uint8_t *value_p, int value_size);
 static node *create_node(const uint8_t *value_p, int value_size);
 
@@ -23,36 +23,36 @@ struct list_st
     node *end;
 };
 
-linked_list *LIST_createList(void)
+list *LIST_createList(void)
 {
-    linked_list *list = (linked_list*) calloc(1, sizeof(linked_list));
-    return list;
+    list *linked_list = (list*) calloc(1, sizeof(list));
+    return linked_list;
 }
 
-bool LIST_addNodeOnHead(linked_list *list, const uint8_t *value_p, int value_size)
+bool LIST_addNodeOnHead(list *linked_list, const uint8_t *value_p, int value_size)
 {
     if(!is_value_valid(value_p, value_size)) return false;
 
     node *node_p = create_node(value_p, value_size);
 
-    if(is_list_empty(list)) list->end = node_p;
+    if(is_list_empty(linked_list)) linked_list->end = node_p;
 
-    node_p->next = list->begin;
-    list->begin  = node_p;
+    node_p->next       = linked_list->begin;
+    linked_list->begin = node_p;
 
     return true;
 }
 
-bool LIST_addNodeOnTail(linked_list *list, const uint8_t *value_p, int value_size)
+bool LIST_addNodeOnTail(list *linked_list, const uint8_t *value_p, int value_size)
 {
     if(!is_value_valid(value_p, value_size)) return false;
 
     node *node_p = create_node(value_p, value_size);
 
-    if(is_list_empty(list)) list->begin     = node_p;
-    else                    list->end->next = node_p;
+    if(is_list_empty(linked_list)) linked_list->begin     = node_p;
+    else                           linked_list->end->next = node_p;
 
-    list->end = node_p;
+    linked_list->end = node_p;
 
     return true;
 }
@@ -61,9 +61,9 @@ bool LIST_addNodeOnTail(linked_list *list, const uint8_t *value_p, int value_siz
 /*                          PRIVATE                          */
 /* ######################################################### */
 
-static bool is_list_empty(const linked_list *list)
+static bool is_list_empty(const list *linked_list)
 {
-    return list->begin == NULL && list->end == NULL;
+    return linked_list->begin == NULL && linked_list->end == NULL;
 }
 
 static bool is_value_valid(const uint8_t *value_p, int value_size)
