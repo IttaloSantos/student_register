@@ -2,6 +2,13 @@
 #include <stdlib.h>
 #include <string.h>
 #include "manager.h"
+#include "list_handler.h"
+
+static list *MANAGER_createStudentList(void);
+
+/* ######################################################### */
+/*                          PUBLIC                           */
+/* ######################################################### */
 
 struct profile_st
 {
@@ -41,3 +48,11 @@ void MANAGER_printStudentProfile(const profile *profile_p)
     printf("CRE: %.2f\n", profile_p->cre);
 }
 
+/* ######################################################### */
+/*                          PRIVATE                          */
+/* ######################################################### */
+
+static list *createStudentList(void)
+{
+    return LIST_createList();
+}
