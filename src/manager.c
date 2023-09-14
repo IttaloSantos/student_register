@@ -10,7 +10,9 @@ static list *student_list = NULL;
 /*                         PROTOTYPES                        */
 /* ######################################################### */
 
-static list *createStudentList(void);
+static list    *createStudentList(void);
+static profile *createStudentProfile(const char *name, int name_size, int age, long int rg_number, float cre);
+static void     deleteStudentProfile(profile *profile_p);
 
 /* ######################################################### */
 /*                          PUBLIC                           */
@@ -24,29 +26,10 @@ struct profile_st
     float    cre;
 };
 
-profile *MANAGER_createStudentProfile(const char *name, int name_size, int age, long int rg_number, float cre)
+void MANAGER_addStudentOnList(const char *name, int name_size, int age, long int rg_number, float cre)
 {
-    profile *std_profile = (profile*) calloc(1, sizeof(profile));
+    profile *profile_p = createStudentProfile(name, name_size, age, rg_number, cre);
 
-    std_profile->name = (char*) calloc(1, name_size*sizeof(char));
-    strcpy(std_profile->name, name);
-    
-    std_profile->age       = age;
-    std_profile->rg_number = rg_number;
-    std_profile->cre       = cre;
-
-    return std_profile;
-}
-
-void MANAGER_deleteStudentProfile(profile *profile_p)
-{
-    free(profile_p->name);
-    free(profile_p);
-    profile_p = NULL;
-}
-
-void MANAGER_addStudentOnList(profile *profile_p)
-{
     if(student_list == NULL) student_list = createStudentList();
 
     int profile_total_size = sizeof(profile) + strlen(profile_p->name);
@@ -56,6 +39,7 @@ void MANAGER_addStudentOnList(profile *profile_p)
 
     LIST_addNodeOnHead(student_list, profile_bytes, profile_total_size);
 
+    deleteStudentProfile(profile_p);
     free(profile_bytes);
 }
 
@@ -75,4 +59,25 @@ void MANAGER_printStudentProfile(const profile *profile_p)
 static list *createStudentList(void)
 {
     return LIST_createList();
+}
+
+static profile *createStudentProfile(const char *name, int name_size, int age, long int rg_number, float cre)
+{
+    profile *std_profile = (profile*) calloc(1, sizeof(profile));
+
+    std_profile->name = (char*) calloc(1, name_size*sizeof(char));
+    strcpy(std_profile->name, name);
+    
+    std_profile->age       = age;
+    std_profile->rg_number = rg_number;
+    std_profile->cre       = cre;
+
+    return std_profile;
+}
+
+static void deleteStudentProfile(profile *profile_p)
+{
+    free(profile_p->name);
+    free(profile_p);
+    profile_p = NULL;
 }
