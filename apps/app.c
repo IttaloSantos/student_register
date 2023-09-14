@@ -11,10 +11,7 @@ int main(int argc, char *argv[])
     double reg_number = atof(argv[3]);
     float  cre        = atof(argv[4]);
 
-    profile *student = MANAGER_createStudentProfile(argv[1], strlen(argv[1]), age, reg_number, cre);
-
-    MANAGER_printStudentProfile(student);
-    MANAGER_deleteStudentProfile(student);
+    MANAGER_addStudentOnList(argv[1], strlen(argv[1]), age, reg_number, cre);
 
     printf("\n");
     return 0;
