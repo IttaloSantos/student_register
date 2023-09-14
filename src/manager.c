@@ -46,6 +46,7 @@ void MANAGER_addStudentOnList(const char *name, int name_size, int age, long int
 
 void MANAGER_printStudentProfile(const profile *profile_p)
 {
+    //! TODO: change the print student profile to get a specific profile from the list
     printf("-------- STUDENT PROFILE --------\n");
     printf("Name: %s\n", profile_p->name);
     printf("Age: %d\n", profile_p->age);
