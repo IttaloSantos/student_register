@@ -4,7 +4,7 @@
 #include "manager.h"
 #include "list_handler.h"
 
-static list *MANAGER_createStudentList(void);
+static list *createStudentList(void);
 
 /* ######################################################### */
 /*                          PUBLIC                           */
