@@ -30,6 +30,11 @@ list *LIST_createList(void)
     return linked_list;
 }
 
+int LIST_getListSize(list *linked_list)
+{
+    return linked_list->size;
+}
+
 bool LIST_addNodeOnHead(list *linked_list, const uint8_t *value_p, int value_size)
 {
     if(!is_value_valid(value_p, value_size)) return false;
