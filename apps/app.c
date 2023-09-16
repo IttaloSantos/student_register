@@ -3,15 +3,28 @@
 #include <stdlib.h>
 #include "manager.h"
 
-int main(int argc, char *argv[])
+int main()
 {
-    if(argc != 5) exit(-1);
+    char     name[50]   = {0};
+    int      age        = 0;
+    long int reg_number = 0;
+    float    cre        = 0.0;
 
-    int      age        = atoi(argv[2]);
-    long int reg_number = atoi(argv[3]);
-    float    cre        = atof(argv[4]);
+    while(name[0] != '/')
+    {
+        printf("\nType the student's name (type '/' to exit):\n");
+        scanf("%s", name);
+        fflush(stdin);
+        if(name[0] == '/') break;
 
-    MANAGER_addStudentOnList(argv[1], age, reg_number, cre);
+        printf("\nType the student's age, register number and CRE separated by space:\n");
+        scanf("%d %ld %f", &age, &reg_number, &cre);
+        fflush(stdin);
+
+        MANAGER_addStudentOnList(name, age, reg_number, cre);
+    }
+
+    MANAGER_printStudentList();
 
     printf("\n");
     return 0;
