@@ -65,6 +65,23 @@ bool LIST_addNodeOnTail(list *linked_list, const uint8_t *value_p, int value_siz
     return true;
 }
 
+uint8_t *LIST_getNodeValue(list *linked_list, const int node_idx)
+{
+    if(linked_list == NULL || 
+        node_idx > LIST_getListSize(linked_list)) return NULL;
+
+    node *node_p = linked_list->begin;
+    int   i = 0;
+
+    while(node_p->next != NULL)
+    {
+        if(i++ == node_idx) break;
+        node_p = node_p->next;
+    }
+
+    return node_p->value;
+}
+
 /* ######################################################### */
 /*                          PRIVATE                          */
 /* ######################################################### */
