@@ -39,7 +39,7 @@ void MANAGER_addStudentOnList(const char *name, int age, long int rg_number, flo
 
     memcpy(profile_bytes, profile_p, sizeof(profile) );
 
-    LIST_addNodeOnHead(student_list, profile_bytes, sizeof(profile));
+    LIST_addNodeOnTail(student_list, profile_bytes, sizeof(profile));
 
     deleteStudentProfile(profile_p);
     free(profile_bytes);
