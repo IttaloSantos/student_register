@@ -48,11 +48,29 @@ void MANAGER_addStudentOnList(const char *name, int age, long int rg_number, flo
 void MANAGER_printStudentProfile(const profile *profile_p)
 {
     //! TODO: change the print student profile to get a specific profile from the list
-    printf("-------- STUDENT PROFILE --------\n");
+    printf("\n-------- STUDENT PROFILE --------\n");
     printf("Name: %s\n", profile_p->name);
     printf("Age: %d\n", profile_p->age);
     printf("Registration: %ld\n", profile_p->rg_number);
     printf("CRE: %.2f\n", profile_p->cre);
+}
+
+void MANAGER_printStudentList(void)
+{
+    if(student_list == NULL) return;
+
+    uint8_t *value     = NULL;
+    profile *profile_p = (profile*) calloc(1, sizeof(profile));
+
+    for(int i = 0; i < LIST_getListSize(student_list); i++)
+    {
+        value = LIST_getNodeValue(student_list, i);
+
+        if(value == NULL) break;
+
+        memcpy(profile_p, value, sizeof(profile));
+        MANAGER_printStudentProfile(profile_p);
+    }
 }
 
 /* ######################################################### */
