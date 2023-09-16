@@ -71,6 +71,9 @@ void MANAGER_printStudentList(void)
         memcpy(profile_p, value, sizeof(profile));
         MANAGER_printStudentProfile(profile_p);
     }
+
+    free(value);
+    free(profile_p);
 }
 
 /* ######################################################### */
