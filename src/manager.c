@@ -79,7 +79,6 @@ static profile *createStudentProfile(const char *name, int age, long int rg_numb
 
 static void deleteStudentProfile(profile *profile_p)
 {
-    free(profile_p->name);
     free(profile_p);
     profile_p = NULL;
 }
