@@ -4,6 +4,8 @@
 #include "manager.h"
 #include "list_handler.h"
 
+#define STUDENT_NAME_MAX_LEN 100
+
 static list *student_list = NULL;
 
 /* ######################################################### */
@@ -11,7 +13,7 @@ static list *student_list = NULL;
 /* ######################################################### */
 
 static list    *createStudentList(void);
-static profile *createStudentProfile(const char *name, int name_size, int age, long int rg_number, float cre);
+static profile *createStudentProfile(const char *name, int age, long int rg_number, float cre);
 static void     deleteStudentProfile(profile *profile_p);
 
 /* ######################################################### */
@@ -20,25 +22,24 @@ static void     deleteStudentProfile(profile *profile_p);
 
 struct profile_st
 {
-    char     *name;
+    char     name[STUDENT_NAME_MAX_LEN];
     int      age;
     long int rg_number;
     float    cre;
 };
 
-void MANAGER_addStudentOnList(const char *name, int name_size, int age, long int rg_number, float cre)
+void MANAGER_addStudentOnList(const char *name, int age, long int rg_number, float cre)
 {
-    profile *profile_p = createStudentProfile(name, name_size, age, rg_number, cre);
+    profile *profile_p = createStudentProfile(name, age, rg_number, cre);
 
     if(student_list == NULL) student_list = createStudentList();
 
     //! TODO: Create a private function to do the memcpy
-    int profile_total_size = sizeof(profile) + strlen(profile_p->name);
-    uint8_t *profile_bytes = (uint8_t*) calloc(1, profile_total_size);
+    uint8_t *profile_bytes = (uint8_t*) calloc(1, sizeof(profile));
 
-    memcpy(profile_bytes, profile_p, profile_total_size);
+    memcpy(profile_bytes, profile_p, sizeof(profile) );
 
-    LIST_addNodeOnHead(student_list, profile_bytes, profile_total_size);
+    LIST_addNodeOnHead(student_list, profile_bytes, sizeof(profile));
 
     deleteStudentProfile(profile_p);
     free(profile_bytes);
@@ -63,11 +64,10 @@ static list *createStudentList(void)
     return LIST_createList();
 }
 
-static profile *createStudentProfile(const char *name, int name_size, int age, long int rg_number, float cre)
+static profile *createStudentProfile(const char *name, int age, long int rg_number, float cre)
 {
     profile *std_profile = (profile*) calloc(1, sizeof(profile));
 
-    std_profile->name = (char*) calloc(1, name_size*sizeof(char));
     strcpy(std_profile->name, name);
     
     std_profile->age       = age;

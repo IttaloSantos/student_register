@@ -11,7 +11,7 @@ int main(int argc, char *argv[])
     long int reg_number = atoi(argv[3]);
     float    cre        = atof(argv[4]);
 
-    MANAGER_addStudentOnList(argv[1], strlen(argv[1]), age, reg_number, cre);
+    MANAGER_addStudentOnList(argv[1], age, reg_number, cre);
 
     printf("\n");
     return 0;
