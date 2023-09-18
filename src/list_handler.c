@@ -6,6 +6,8 @@
 static bool is_list_empty(const list *linked_list);
 static bool is_value_valid(const uint8_t *value_p, int value_size);
 static node *create_node(const uint8_t *value_p, int value_size);
+static bool find_value_in_node(const uint8_t *n_value, const uint8_t *value, 
+                                int value_size, uint8_t offset);
 
 /* ######################################################### */
 /*                          PUBLIC                           */
@@ -82,6 +84,30 @@ uint8_t *LIST_getNodeValue(list *linked_list, const int node_idx)
     return node_p->value;
 }
 
+void LIST_removeNode(list *linked_list, const uint8_t *value, int value_size, uint8_t offset)
+{
+    node *node_p   = linked_list->begin;
+    node *node_aux = linked_list->begin;
+
+    for(int i = 0; i < linked_list->size; i++)
+    {
+        if(!find_value_in_node(node_p->value, value, value_size, offset))
+        {
+            node_aux = node_p;
+            node_p   = node_p->next;
+            continue;
+        }
+
+        if(i == 0)                          linked_list->begin = node_p->next;
+        else if(i == linked_list->size - 1) linked_list->end   = node_aux;
+        else                                node_aux->next     = node_p->next;
+        
+        free(node_p);
+        node_p = NULL;
+        break;
+    }
+}
+
 /* ######################################################### */
 /*                          PRIVATE                          */
 /* ######################################################### */
@@ -110,4 +136,10 @@ static node *create_node(const uint8_t *value_p, int value_size)
     memcpy(node_p->value, value_p, value_size);
 
     return node_p;
+}
+
+static bool find_value_in_node(const uint8_t *n_value, const uint8_t *value,
+                                int value_size, uint8_t offset)
+{
+    return memcmp(n_value+offset, value+offset, value_size) == 0;
 }
