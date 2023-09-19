@@ -87,6 +87,11 @@ void MANAGER_removeStudentFromList(long int rg_number)
     free(value);
 }
 
+void MANAGER_destroyStudentList(void)
+{
+    LIST_destroyList(student_list);
+}
+
 /* ######################################################### */
 /*                          PRIVATE                          */
 /* ######################################################### */
