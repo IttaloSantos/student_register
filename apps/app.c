@@ -21,8 +21,13 @@ int main()
         scanf("%d %ld %f", &age, &reg_number, &cre);
         fflush(stdin);
 
+
         MANAGER_addStudentOnList(name, age, reg_number, cre);
     }
+
+    MANAGER_printStudentList();
+
+    MANAGER_removeStudentFromList(20231630);
 
     MANAGER_printStudentList();
 
