@@ -120,6 +120,24 @@ void LIST_removeNode(list *linked_list, const uint8_t *value, int value_size, ui
     }
 }
 
+void LIST_destroyList(list *linked_list)
+{
+    node *node_p   = linked_list->begin;
+    node *node_aux = NULL;
+
+    while(node_p == NULL)
+    {
+        node_aux = node_p;
+        node_p   = node_p->next;
+
+        free(node_aux->value);
+        free(node_aux);
+    }
+    
+    free(linked_list);
+    linked_list = NULL;
+}
+
 /* ######################################################### */
 /*                          PRIVATE                          */
 /* ######################################################### */
