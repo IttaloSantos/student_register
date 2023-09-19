@@ -141,5 +141,5 @@ static node *create_node(const uint8_t *value_p, int value_size)
 static bool find_value_in_node(const uint8_t *n_value, const uint8_t *value,
                                 int value_size, uint8_t offset)
 {
-    return memcmp(n_value+offset, value+offset, value_size) == 0;
+    return memcmp(n_value+offset, value, value_size) == 0;
 }
