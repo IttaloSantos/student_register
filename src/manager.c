@@ -75,6 +75,18 @@ void MANAGER_printStudentList(void)
     free(profile_p);
 }
 
+void MANAGER_removeStudentFromList(long int rg_number)
+{
+    int offset = STUDENT_NAME_MAX_LEN + sizeof(int);
+
+    uint8_t *value = (uint8_t*) calloc(1, sizeof(long int));
+
+    memcpy(value, &rg_number, sizeof(long int));
+
+    LIST_removeNode(student_list, value, sizeof(long int), offset);
+    free(value);
+}
+
 /* ######################################################### */
 /*                          PRIVATE                          */
 /* ######################################################### */
