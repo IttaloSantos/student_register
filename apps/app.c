@@ -31,6 +31,8 @@ int main()
 
     MANAGER_printStudentList();
 
+    MANAGER_destroyStudentList();
+
     printf("\n");
     return 0;
 }
