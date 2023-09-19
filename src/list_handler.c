@@ -98,10 +98,22 @@ void LIST_removeNode(list *linked_list, const uint8_t *value, int value_size, ui
             continue;
         }
 
-        if(i == 0)                          linked_list->begin = node_p->next;
-        else if(i == linked_list->size - 1) linked_list->end   = node_aux;
-        else                                node_aux->next     = node_p->next;
+        if(i == 0)                          
+        {
+            linked_list->begin = node_p->next;
+            if(linked_list->size == 1) linked_list->end = NULL;
+        }
+        else if(i == linked_list->size - 1)
+        {
+            linked_list->end = node_aux;
+            node_aux->next   = NULL;
+        }
+        else 
+        {
+            node_aux->next = node_p->next;
+        }
         
+        linked_list->size--;
         free(node_p);
         node_p = NULL;
         break;
