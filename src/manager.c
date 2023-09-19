@@ -72,7 +72,6 @@ void MANAGER_printStudentList(void)
         MANAGER_printStudentProfile(profile_p);
     }
 
-    free(value);
     free(profile_p);
 }
 
