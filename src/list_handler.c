@@ -37,11 +37,11 @@ int LIST_getListSize(list *linked_list)
     return linked_list->size;
 }
 
-bool LIST_addNodeOnHead(list *linked_list, const uint8_t *value_p, int value_size)
+bool LIST_addNodeOnHead(list *linked_list, const uint8_t *value, int value_size)
 {
-    if(!is_value_valid(value_p, value_size)) return false;
+    if(!is_value_valid(value, value_size)) return false;
 
-    node *node_p = create_node(value_p, value_size);
+    node *node_p = create_node(value, value_size);
 
     if(is_list_empty(linked_list)) linked_list->end = node_p;
 
@@ -52,11 +52,11 @@ bool LIST_addNodeOnHead(list *linked_list, const uint8_t *value_p, int value_siz
     return true;
 }
 
-bool LIST_addNodeOnTail(list *linked_list, const uint8_t *value_p, int value_size)
+bool LIST_addNodeOnTail(list *linked_list, const uint8_t *value, int value_size)
 {
-    if(!is_value_valid(value_p, value_size)) return false;
+    if(!is_value_valid(value, value_size)) return false;
 
-    node *node_p = create_node(value_p, value_size);
+    node *node_p = create_node(value, value_size);
 
     if(is_list_empty(linked_list)) linked_list->begin     = node_p;
     else                           linked_list->end->next = node_p;
