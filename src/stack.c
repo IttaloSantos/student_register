@@ -23,3 +23,7 @@ void STACK_destroyStack(stack *stack_p)
     stack_p = NULL;
 }
 
+bool STACK_pushElement(stack *stack_p, const uint8_t *value, int value_size)
+{
+    return LIST_addNodeOnTail(stack_p->data, value, value_size);
+}
