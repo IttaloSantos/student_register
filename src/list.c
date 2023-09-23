@@ -143,7 +143,7 @@ void LIST_destroyList(list *linked_list)
 {
     node *node_p = linked_list->begin;
 
-    while(node_p == NULL)
+    while(node_p != NULL)
     {
         free(node_p->value);
         free(node_p->prev);
