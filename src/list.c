@@ -33,7 +33,7 @@ list *LIST_createList(void)
     return linked_list;
 }
 
-int LIST_getListSize(list *linked_list)
+int LIST_getListSize(const list *linked_list)
 {
     return linked_list->size;
 }
@@ -70,7 +70,7 @@ bool LIST_addNodeOnTail(list *linked_list, const uint8_t *value, int value_size)
     return true;
 }
 
-uint8_t *LIST_getNodeValue(list *linked_list, const int node_idx)
+uint8_t *LIST_getNodeValue(const list *linked_list, int node_idx)
 {
     if(linked_list == NULL || 
         node_idx > LIST_getListSize(linked_list)) return NULL;
