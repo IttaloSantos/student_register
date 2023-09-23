@@ -38,3 +38,8 @@ uint8_t *STACK_peekElement(stack *stack_p)
     size_t element_idx = LIST_getListSize(stack_p->data) - 1;
     return LIST_getNodeValue(stack_p->data, (int)element_idx);
 }
+
+void STACK_printStack(stack *stack_p)
+{
+    LIST_printListValues(stack_p->data);
+}
