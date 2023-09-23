@@ -130,7 +130,7 @@ void LIST_removeFirstNode(list *linked_list)
 
 void LIST_removeLastNode(list *linked_list)
 {
-    node *node_p       = linked_list->begin;
+    node *node_p       = linked_list->end;
     linked_list->end   = node_p->prev;
     node_p->prev->next = NULL;
 
