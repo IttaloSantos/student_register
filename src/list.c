@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include "list_handler.h"
+#include "list.h"
 
 static bool is_list_empty(const list *linked_list);
 static bool is_value_valid(const uint8_t *value_p, int value_size);

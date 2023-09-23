@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "manager.h"
-#include "list_handler.h"
+#include "list.h"
 
 #define STUDENT_NAME_MAX_LEN 100
 
