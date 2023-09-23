@@ -13,6 +13,8 @@ bool     LIST_addNodeOnTail(list *linked_list, const uint8_t *value, int value_s
 int      LIST_getListSize(list *linked_list);
 uint8_t *LIST_getNodeValue(list *linked_list, const int node_idx);
 void     LIST_removeNode(list *linked_list, const uint8_t *value, int value_size, uint8_t offset);
+void     LIST_removeLastNode(list *linked_list);
+void     LIST_removeFirstNode(list *linked_list);
 void     LIST_destroyList(list *linked_list);
 
 #endif

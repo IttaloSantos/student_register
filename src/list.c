@@ -99,28 +99,44 @@ void LIST_removeNode(list *linked_list, const uint8_t *value, int value_size, ui
             continue;
         }
 
-        if(i == 0)
-        {
-            linked_list->begin = node_p->next;
-            if(linked_list->size == 1) linked_list->end   = NULL;
-            else                       node_p->next->prev = NULL;
-        }
-        else if(i == linked_list->size - 1)
-        {
-            linked_list->end   = node_p->prev;
-            node_p->prev->next = NULL;
-        }
-        else 
-        {
-            node_p->prev->next = node_p->next;
-            node_p->next->prev = node_p->prev;
-        }
+        if(i == 0)                          LIST_removeFirstNode(linked_list);
+        else if(i == linked_list->size - 1) LIST_removeLastNode(linked_list);
+
+        if(i == 0 || i == linked_list->size -1) break;
+
+        node_p->prev->next = node_p->next;
+        node_p->next->prev = node_p->prev;
 
         linked_list->size--;
         free(node_p);
         node_p = NULL;
+
         break;
     }
+}
+
+void LIST_removeFirstNode(list *linked_list)
+{
+    node *node_p       = linked_list->begin;
+    linked_list->begin = node_p->next;
+
+    if(linked_list->size == 1) linked_list->end   = NULL;
+    else                       node_p->next->prev = NULL;
+
+    linked_list->size--;
+    free(node_p);
+    node_p = NULL;
+}
+
+void LIST_removeLastNode(list *linked_list)
+{
+    node *node_p       = linked_list->begin;
+    linked_list->end   = node_p->prev;
+    node_p->prev->next = NULL;
+
+    linked_list->size--;
+    free(node_p);
+    node_p = NULL;
 }
 
 void LIST_destroyList(list *linked_list)
