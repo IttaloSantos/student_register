@@ -102,7 +102,7 @@ void LIST_removeNode(list *linked_list, const uint8_t *value, int value_size, ui
         if(i == 0)                          LIST_removeFirstNode(linked_list);
         else if(i == linked_list->size - 1) LIST_removeLastNode(linked_list);
 
-        if(i == 0 || i == linked_list->size -1) break;
+        if(i == 0 || i == linked_list->size) break;
 
         node_p->prev->next = node_p->next;
         node_p->next->prev = node_p->prev;
