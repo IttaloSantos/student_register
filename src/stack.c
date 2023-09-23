@@ -28,6 +28,11 @@ bool STACK_pushElement(stack *stack_p, const uint8_t *value, int value_size)
     return LIST_addNodeOnTail(stack_p->data, value, value_size);
 }
 
+void STACK_popElement(stack *stack_p)
+{
+    LIST_removeLastNode(stack_p->data);
+}
+
 uint8_t *STACK_peekElement(stack *stack_p)
 {
     size_t element_idx = LIST_getListSize(stack_p->data) - 1;
