@@ -16,5 +16,6 @@ void     LIST_removeNode(list *linked_list, const uint8_t *value, int value_size
 void     LIST_removeLastNode(list *linked_list);
 void     LIST_removeFirstNode(list *linked_list);
 void     LIST_destroyList(list *linked_list);
+void     LIST_printListValues(const list *linked_list);
 
 #endif

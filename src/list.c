@@ -157,6 +157,20 @@ void LIST_destroyList(list *linked_list)
     linked_list = NULL;
 }
 
+void LIST_printListValues(const list *linked_list)
+{
+    if(is_list_empty(linked_list)) return;
+
+    node *node_p = linked_list->begin;
+
+    while(node_p != NULL)
+    {
+        printf("%d ", *node_p->value);
+        node_p = node_p->next;
+    }
+    puts("");
+}
+
 /* ######################################################### */
 /*                          PRIVATE                          */
 /* ######################################################### */
