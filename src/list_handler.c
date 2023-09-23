@@ -17,6 +17,7 @@ struct node_st
 {
     uint8_t *value;
     node    *next;
+    node    *prev;
 };
 
 struct list_st
@@ -43,7 +44,8 @@ bool LIST_addNodeOnHead(list *linked_list, const uint8_t *value, int value_size)
 
     node *node_p = create_node(value, value_size);
 
-    if(is_list_empty(linked_list)) linked_list->end = node_p;
+    if(is_list_empty(linked_list)) linked_list->end         = node_p;
+    else                           linked_list->begin->prev = node_p;
 
     node_p->next       = linked_list->begin;
     linked_list->begin = node_p;
@@ -61,6 +63,7 @@ bool LIST_addNodeOnTail(list *linked_list, const uint8_t *value, int value_size)
     if(is_list_empty(linked_list)) linked_list->begin     = node_p;
     else                           linked_list->end->next = node_p;
 
+    node_p->prev     = linked_list->end;
     linked_list->end = node_p;
     linked_list->size++;
 
@@ -86,33 +89,33 @@ uint8_t *LIST_getNodeValue(list *linked_list, const int node_idx)
 
 void LIST_removeNode(list *linked_list, const uint8_t *value, int value_size, uint8_t offset)
 {
-    node *node_p   = linked_list->begin;
-    node *node_aux = linked_list->begin;
+    node *node_p = linked_list->begin;
 
     for(int i = 0; i < linked_list->size; i++)
     {
         if(!find_value_in_node(node_p->value, value, value_size, offset))
         {
-            node_aux = node_p;
-            node_p   = node_p->next;
+            node_p = node_p->next;
             continue;
         }
 
-        if(i == 0)                          
+        if(i == 0)
         {
             linked_list->begin = node_p->next;
-            if(linked_list->size == 1) linked_list->end = NULL;
+            if(linked_list->size == 1) linked_list->end   = NULL;
+            else                       node_p->next->prev = NULL;
         }
         else if(i == linked_list->size - 1)
         {
-            linked_list->end = node_aux;
-            node_aux->next   = NULL;
+            linked_list->end   = node_p->prev;
+            node_p->prev->next = NULL;
         }
         else 
         {
-            node_aux->next = node_p->next;
+            node_p->prev->next = node_p->next;
+            node_p->next->prev = node_p->prev;
         }
-        
+
         linked_list->size--;
         free(node_p);
         node_p = NULL;
@@ -122,18 +125,18 @@ void LIST_removeNode(list *linked_list, const uint8_t *value, int value_size, ui
 
 void LIST_destroyList(list *linked_list)
 {
-    node *node_p   = linked_list->begin;
-    node *node_aux = NULL;
+    node *node_p = linked_list->begin;
 
     while(node_p == NULL)
     {
-        node_aux = node_p;
-        node_p   = node_p->next;
+        free(node_p->value);
+        free(node_p->prev);
 
-        free(node_aux->value);
-        free(node_aux);
+        node_p->value = NULL;
+        node_p->prev  = NULL;
+        node_p = node_p->next;
     }
-    
+
     free(linked_list);
     linked_list = NULL;
 }
