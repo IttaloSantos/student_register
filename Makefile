@@ -4,16 +4,22 @@ OBJ = ./obj
 APP = ./apps
 BIN = ./bin
 
-ALL: buildSrcs buildApps
+ALL: srcs apps
 
-buildSrcs:
-	gcc -c $(SRC)/manager.c -I $(INC)/ -o $(OBJ)/manager.o
-	gcc -c $(SRC)/list.c -I $(INC)/ -o $(OBJ)/list.o
-	gcc -c $(SRC)/stack.c -I $(INC)/ -o $(OBJ)/stack.o
+srcs: \
+	$(OBJ)/manager.o \
+	$(OBJ)/list.o \
+	$(OBJ)/stack.o
 
-buildApps:
-	gcc $(APP)/app.c $(OBJ)/* -I $(INC)/ -o $(BIN)/app
-	gcc $(APP)/app_stack.c $(OBJ)/* -I $(INC)/ -o $(BIN)/app_stack
+apps: \
+	$(BIN)/app \
+	$(BIN)/app_stack
+
+$(OBJ)/%.o: $(SRC)/%.c
+	gcc -c $< -I $(INC)/ -o $@
+
+$(BIN)/%: $(APP)/%.c
+	gcc $< $(OBJ)/* -I $(INC)/ -o $@
 
 run:
 	$(BIN)/app
