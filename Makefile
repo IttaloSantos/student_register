@@ -9,9 +9,13 @@ buildSrcs:
 
 buildApps:
 	gcc ./apps/app.c ./obj/* -I ./include/ -o ./bin/app
+	gcc ./apps/app_stack.c ./obj/* -I ./include/ -o ./bin/app_stack
 
 run:
 	./bin/app
+
+runAppStack:
+	./bin/app_stack
 
 clean:
 	rm -f ./bin/* ./obj/*
