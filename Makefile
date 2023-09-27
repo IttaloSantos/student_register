@@ -14,7 +14,8 @@ srcs: \
 
 apps: \
 	$(BIN)/app \
-	$(BIN)/app_stack
+	$(BIN)/app_stack \
+	$(BIN)/app_queue
 
 $(OBJ)/%.o: $(SRC)/%.c
 	gcc -c $< -I $(INC)/ -o $@
@@ -27,6 +28,9 @@ run:
 
 runAppStack:
 	$(BIN)/app_stack
+
+runAppQueue:
+	$(BIN)/app_queue
 
 clean:
 	rm -f $(BIN)/* $(OBJ)/*
