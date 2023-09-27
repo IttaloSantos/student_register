@@ -32,3 +32,8 @@ void QUEUE_dequeue(queue *queue_p)
 {
     LIST_removeFirstNode(queue_p->data);
 }
+
+uint8_t *QUEUE_peekElement(queue *queue_p)
+{
+    return LIST_getNodeValue(queue_p->data, 0);
+}
