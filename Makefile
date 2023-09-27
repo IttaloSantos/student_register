@@ -9,7 +9,8 @@ ALL: srcs apps
 srcs: \
 	$(OBJ)/manager.o \
 	$(OBJ)/list.o \
-	$(OBJ)/stack.o
+	$(OBJ)/stack.o \
+	$(OBJ)/queue.o
 
 apps: \
 	$(BIN)/app \
