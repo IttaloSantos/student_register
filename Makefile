@@ -9,11 +9,13 @@ ALL: srcs apps
 srcs: \
 	$(OBJ)/manager.o \
 	$(OBJ)/list.o \
-	$(OBJ)/stack.o
+	$(OBJ)/stack.o \
+	$(OBJ)/queue.o
 
 apps: \
 	$(BIN)/app \
-	$(BIN)/app_stack
+	$(BIN)/app_stack \
+	$(BIN)/app_queue
 
 $(OBJ)/%.o: $(SRC)/%.c
 	gcc -c $< -I $(INC)/ -o $@
@@ -26,6 +28,9 @@ run:
 
 runAppStack:
 	$(BIN)/app_stack
+
+runAppQueue:
+	$(BIN)/app_queue
 
 clean:
 	rm -f $(BIN)/* $(OBJ)/*
