@@ -37,3 +37,8 @@ uint8_t *QUEUE_peekElement(queue *queue_p)
 {
     return LIST_getNodeValue(queue_p->data, 0);
 }
+
+size_t QUEUE_getQueueSize(queue *queue_p)
+{
+    return LIST_getListSize(queue_p->data);
+}
