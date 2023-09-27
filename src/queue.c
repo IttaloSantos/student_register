@@ -14,3 +14,11 @@ queue *QUEUE_createQueue(void)
 
     return queue_p;
 }
+
+void QUEUE_destroyQueue(queue *queue_p)
+{
+    LIST_destroyList(queue_p->data);
+    free(queue_p);
+
+    queue_p = NULL;
+}
