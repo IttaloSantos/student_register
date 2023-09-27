@@ -42,3 +42,8 @@ size_t QUEUE_getQueueSize(queue *queue_p)
 {
     return LIST_getListSize(queue_p->data);
 }
+
+void QUEUE_printQueue(queue *queue_p)
+{
+    LIST_printListValues(queue_p->data);
+}
