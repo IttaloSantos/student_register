@@ -1,12 +1,37 @@
 #include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 #include "manager.h"
 
-int main(int argc, char *argv[])
+int main()
 {
-    profile *student = MANAGER_createStudentProfile("Adam", 14, 20231200, 0.0);
+    char     name[50]   = {0};
+    int      age        = 0;
+    long int reg_number = 0;
+    float    cre        = 0.0;
 
-    MANAGER_printStudentProfile(student);
-    MANAGER_deleteStudentProfile(student);
+    while(name[0] != '/')
+    {
+        printf("\nType the student's name (type '/' to exit):\n");
+        scanf("%s", name);
+        fflush(stdin);
+        if(name[0] == '/') break;
+
+        printf("\nType the student's age, register number and CRE separated by space:\n");
+        scanf("%d %ld %f", &age, &reg_number, &cre);
+        fflush(stdin);
+
+
+        MANAGER_addStudentOnList(name, age, reg_number, cre);
+    }
+
+    MANAGER_printStudentList();
+
+    MANAGER_removeStudentFromList(20231630);
+
+    MANAGER_printStudentList();
+
+    MANAGER_destroyStudentList();
 
     printf("\n");
     return 0;

@@ -2,20 +2,109 @@
 #include <stdlib.h>
 #include <string.h>
 #include "manager.h"
+#include "list.h"
 
-struct student_profile
+#define STUDENT_NAME_MAX_LEN 100
+
+static list *student_list = NULL;
+
+/* ######################################################### */
+/*                         PROTOTYPES                        */
+/* ######################################################### */
+
+static list    *createStudentList(void);
+static profile *createStudentProfile(const char *name, int age, long int rg_number, float cre);
+static void     deleteStudentProfile(profile *profile_p);
+
+/* ######################################################### */
+/*                          PUBLIC                           */
+/* ######################################################### */
+
+struct profile_st
 {
-    char     *name;
+    char     name[STUDENT_NAME_MAX_LEN];
     int      age;
     long int rg_number;
     float    cre;
 };
 
-profile *MANAGER_createStudentProfile(const char *name, int age, long int rg_number, float cre)
+void MANAGER_addStudentOnList(const char *name, int age, long int rg_number, float cre)
+{
+    profile *profile_p = createStudentProfile(name, age, rg_number, cre);
+
+    if(student_list == NULL) student_list = createStudentList();
+
+    //! TODO: Create a private function to do the memcpy
+    uint8_t *profile_bytes = (uint8_t*) calloc(1, sizeof(profile));
+
+    memcpy(profile_bytes, profile_p, sizeof(profile) );
+
+    LIST_addNodeOnTail(student_list, profile_bytes, sizeof(profile));
+
+    deleteStudentProfile(profile_p);
+    free(profile_bytes);
+}
+
+void MANAGER_printStudentProfile(const profile *profile_p)
+{
+    //! TODO: change the print student profile to get a specific profile from the list
+    printf("\n-------- STUDENT PROFILE --------\n");
+    printf("Name: %s\n", profile_p->name);
+    printf("Age: %d\n", profile_p->age);
+    printf("Registration: %ld\n", profile_p->rg_number);
+    printf("CRE: %.2f\n", profile_p->cre);
+}
+
+void MANAGER_printStudentList(void)
+{
+    if(student_list == NULL) return;
+
+    uint8_t *value     = NULL;
+    profile *profile_p = (profile*) calloc(1, sizeof(profile));
+
+    for(int i = 0; i < LIST_getListSize(student_list); i++)
+    {
+        value = LIST_getNodeValue(student_list, i);
+
+        if(value == NULL) break;
+
+        memcpy(profile_p, value, sizeof(profile));
+        MANAGER_printStudentProfile(profile_p);
+    }
+
+    free(profile_p);
+}
+
+void MANAGER_removeStudentFromList(long int rg_number)
+{
+    int offset = STUDENT_NAME_MAX_LEN + sizeof(int);
+
+    uint8_t *value = (uint8_t*) calloc(1, sizeof(long int));
+
+    memcpy(value, &rg_number, sizeof(long int));
+
+    LIST_removeNode(student_list, value, sizeof(long int), offset);
+    free(value);
+}
+
+void MANAGER_destroyStudentList(void)
+{
+    LIST_destroyList(student_list);
+}
+
+/* ######################################################### */
+/*                          PRIVATE                          */
+/* ######################################################### */
+
+static list *createStudentList(void)
+{
+    return LIST_createList();
+}
+
+static profile *createStudentProfile(const char *name, int age, long int rg_number, float cre)
 {
     profile *std_profile = (profile*) calloc(1, sizeof(profile));
 
-    std_profile->name = (char*) calloc(1, sizeof(char));
     strcpy(std_profile->name, name);
     
     std_profile->age       = age;
@@ -25,18 +114,8 @@ profile *MANAGER_createStudentProfile(const char *name, int age, long int rg_num
     return std_profile;
 }
 
-void MANAGER_deleteStudentProfile(profile *profile_p)
+static void deleteStudentProfile(profile *profile_p)
 {
     free(profile_p);
     profile_p = NULL;
 }
-
-void MANAGER_printStudentProfile(const profile *profile_p)
-{
-    printf("-------- STUDENT PROFILE --------\n");
-    printf("Name: %s\n", profile_p->name);
-    printf("Age: %d\n", profile_p->age);
-    printf("Registration: %ld\n", profile_p->rg_number);
-    printf("CRE: %.2f\n", profile_p->cre);
-}
-

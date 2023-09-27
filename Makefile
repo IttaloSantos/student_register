@@ -1,15 +1,31 @@
+SRC = ./src
+INC = ./include
+OBJ = ./obj
+APP = ./apps
+BIN = ./bin
 
+ALL: srcs apps
 
-ALL: buildSrcs buildApps
+srcs: \
+	$(OBJ)/manager.o \
+	$(OBJ)/list.o \
+	$(OBJ)/stack.o
 
-buildSrcs:
-	gcc -c ./src/manager.c -I ./include/ -o ./obj/manager.o
+apps: \
+	$(BIN)/app \
+	$(BIN)/app_stack
 
-buildApps:
-	gcc ./apps/app.c ./obj/manager.o -I ./include/ -o ./bin/app
+$(OBJ)/%.o: $(SRC)/%.c
+	gcc -c $< -I $(INC)/ -o $@
+
+$(BIN)/%: $(APP)/%.c
+	gcc $< $(OBJ)/* -I $(INC)/ -o $@
 
 run:
-	./bin/app
+	$(BIN)/app
+
+runAppStack:
+	$(BIN)/app_stack
 
 clean:
-	rm -f ./bin/* ./obj/*
+	rm -f $(BIN)/* $(OBJ)/*
