@@ -1,4 +1,4 @@
-Simple Platform for registration of students
+# Simple Platform for registration of students
 
 The student structure properties:
 
